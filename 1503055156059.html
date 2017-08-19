@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
+    <script>
+        //designWidth:设计稿的实际宽度值，需要根据实际设置
+        //maxWidth:制作稿的最大宽度值，需要根据实际设置
+        //这段js的最后面有两个参数记得要设置，一个为设计稿实际宽度，一个为制作稿最大宽度，例如设计稿为750，最大宽度为750，则为(750,750)
+        ;(function (designWidth, maxWidth) {
+            var doc = document,
+                win = window,
+                docEl = doc.documentElement,
+                remStyle = document.createElement("style"),
+                tid;
+
+            function refreshRem() {
+                var width = docEl.getBoundingClientRect().width;
+                maxWidth = maxWidth || 540;
+                width > maxWidth && (width = maxWidth);
+                var rem = width * 100 / designWidth;
+                remStyle.innerHTML = 'html{font-size:' + rem + 'px;}';
+            }
+
+            if (docEl.firstElementChild) {
+                docEl.firstElementChild.appendChild(remStyle);
+            } else {
+                var wrap = doc.createElement("div");
+                wrap.appendChild(remStyle);
+                doc.write(wrap.innerHTML);
+                wrap = null;
+            }
+            //要等 wiewport 设置好后才能执行 refreshRem，不然 refreshRem 会执行2次；
+            refreshRem();
+
+            win.addEventListener("resize", function () {
+                clearTimeout(tid); //防止执行两次
+                tid = setTimeout(refreshRem, 300);
+            }, false);
+
+            win.addEventListener("pageshow", function (e) {
+                if (e.persisted) { // 浏览器后退的时候重新计算
+                    clearTimeout(tid);
+                    tid = setTimeout(refreshRem, 300);
+                }
+            }, false);
+
+            if (doc.readyState === "complete") {
+                doc.body.style.fontSize = "16px";
+            } else {
+                doc.addEventListener("DOMContentLoaded", function (e) {
+                    doc.body.style.fontSize = "16px";
+                }, false);
+            }
+        })(720, 720);
+    </script>
+    <style>
+        h1, h2, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: auto;
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .advertorial {
+            height: auto;
+            padding: 0.2rem;
+            display: flex;
+        }
+
+        .mainContent h1 {
+            font-size: 0.42rem;
+            color: #333;
+            line-height: 0.6rem;
+            margin-top: 0.40rem;
+            margin-bottom: 0.34rem;
+        }
+
+        .publishTime {
+            color: #a0a0a0;
+            margin-bottom: 0.38rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .publishTime span {
+            margin-right: 0.14rem;
+        }
+
+        .publishTime span.time {
+            margin-right: 0.26rem;
+        }
+
+        .publishTime i {
+            width: 0.3rem;
+            height: 0.18rem;
+            display: block;
+            background: url("./icon_read.png") no-repeat center;
+            background-size: 100% 100%;
+            margin-right: 0.1rem;
+        }
+
+        .publisher {
+            height: 0.92rem;
+            color: #fff;
+            background-color: #f54949;
+            font-size: 0.28rem;
+            margin-bottom: 0.50rem;
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+        }
+
+        .publisher .publisherImg,
+        .publisher .publishNike {
+            display: flex;
+            align-items: center;
+        }
+
+        .publisher .publisherImg {
+            padding-left: 0.30rem;
+            padding-right: 0.24rem;
+        }
+
+        .publisher .publisherImg img {
+            width: 0.84rem;
+            height: 0.84rem;
+            border-radius: 0.84rem;
+        }
+
+        .publisher .publisherImg img {
+            margin-right: 0.1rem;
+        }
+
+        .publisher .line {
+            width: 0.02rem;
+            height: 0.56rem;
+            background-color: #fff;
+        }
+
+        .publisher .publishNike {
+            padding-left: 0.40rem;
+        }
+
+        article .goods h2,
+        article .goods p {
+            font-size: 0.32rem;
+            color: #333;
+            font-weight: 700;
+            line-height: 0.54rem;
+        }
+
+        article .goods p {
+            margin-bottom: 0.50rem;
+        }
+
+        article .goods img {
+            width: 100%;
+            height: auto;
+            margin: 0 auto 0.50rem;
+        }
+
+        article .goods .priceDetail {
+            width: 2.68rem;
+            height: 0.60rem;
+            border-radius: 0.60rem;
+            background-color: #f54949;
+            font-size: 0.24rem;
+            margin: -0.20rem auto 0.50rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        article .goods .priceDetail span,
+        article .goods .priceDetail a {
+            color: #fff;
+            display: block;
+            text-decoration: none;
+        }
+
+        article .goods .priceDetail .line {
+            width: 0.02rem;
+            height: 0.24rem;
+            background-color: #fff;
+            display: block;
+            margin: 0.1rem;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="advertorial">
+        <div class="mainContent">
+            <h1>男人戴金链俗气、纹身痛又不好看，现在流行这几种，给力又好玩</h1>
+            <div class="publishTime">
+                <span class="date">2017-08-09</span>
+                <span class="time">17:41</span>
+                <i></i>
+                <span class="browseNumber">39.5万</span>
+            </div>
+            <div class="publisher">
+                <div class="publisherImg">
+                    <img src="./573f36c5cff37.jpg" alt="">
+                    <span class="publisherName">Just</span>
+                </div>
+                <div class="line"></div>
+                <div class="publishNike">
+                    <span>一个苦逼的深夜码字工</span>
+                </div>
+            </div>
+            <article>
+                <div class="goods">
+                    <h2>美国O2COOL 创意喷雾水杯</h2>
+                    <p>创意喷雾水杯，喷雾设计，很是创新，采用的是食品级别的耐高温度塑料。坚韧耐磨绝不脱色，耐高温，没有任何有害成分。</p>
+                    <img src="./penwushuibei.jpg" alt="">
+                    <p>推荐理由：水壶新主义，运动人士的专属设计，时尚运动的杯身外形，触觉于视觉的完美结合，抗压耐摔的材质，便于携带，运动人士的最佳拍档。</p>
+                    <img src="./TB2ffIPb7QkyKJjSspaXXc_ipXa_!!827272833.jpg_400x400.jpg" alt="">
+                    <div class="priceDetail">
+                        <span>￥119.00</span>
+                        <em class="line"></em>
+                        <a href="">查看详情</a>
+                    </div>
+                </div>
+                <div class="goods">
+                    <h2>韩式腰包潮流斜跨包</h2>
+                    <p>明快，黝黑，冷酷外表，内蕴赤城。时尚男包，优质的布料，绅士的风格，舒适的体验，不俗的品牌，贴心的价格。</p>
+                    <img src="./2608c0103242555b8add5ea0aa4d5f04x640x640x27.jpg" alt="">
+                    <p>推荐理由：简约时尚，多内袋小胸包，适合现在90后都市学生及上班族，帆布面料具强防水性，纯色小巧外观独特更具个性！</p>
+                    <img src="./TB2gDiIsNhmpuFjSZFyXXcLdFXa_!!847496387.jpg" alt="">
+                    <div class="priceDetail">
+                        <span>￥99.00</span>
+                        <em class="line"></em>
+                        <a href="">查看详情</a>
+                    </div>
+                </div>
+                <div class="goods">
+                    <h2>原创手工黑檀木手串</h2>
+                    <p>在时尚潮流的推进下，人们的爱好也在跟着时代而发生改变，现在的人都喜欢有文化的隐富，所以越来越多的人开始佩戴文玩手串。</p>
+                    <img src="./793403a3c617b9d1c7f753bfebbfd165x640x640x27.jpg" alt="">
+                    <p>推荐理由：黑檀木手串，温婉中透露了一丝低调的华丽，佩戴在手上十分美观。原创设计，款式简洁大方。随性佩戴，增添一份玩赏之趣，跟随慢生活的脚部，悠然还可以轻松畅快一点。</p>
+                    <img src="./TB2J64osrJkpuFjy1zcXXa5FFXa_!!707254111.jpg_400x400.jpg_.webp.jpg" alt="">
+                    <div class="priceDetail">
+                        <span>￥59.00</span>
+                        <em class="line"></em>
+                        <a href="">查看详情</a>
+                    </div>
+                </div>
+                <div class="goods">
+                    <h2>Goat Story Mug山羊角咖啡杯</h2>
+                    <p>羊角杯的设计灵感来源于山羊与牧羊人的故事，超IN设计的山羊角室内户外随手杯，今年超级流行。</p>
+                    <img src="./83275c7bdf16c05f93b87774266cebbex640x640x58.jpg" alt="">
+                    <p>推荐理由：如果你是一个追求生活品质的人，那么你该拥有一个拉风的杯子。别具一个的设计，带来的是百分百的回头率。</p>
+                    <img src="./TB2J64osrJkpuFjy1zcXXa5FFXa_!!707254111.jpg_400x400.jpg_.webp.jpg" alt="">
+                    <div class="priceDetail">
+                        <span>￥119.00</span>
+                        <em class="line"></em>
+                        <a href="">查看详情</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+</body>
+</html>
